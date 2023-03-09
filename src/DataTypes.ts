@@ -8,7 +8,8 @@ export interface DeviceData {
     accel_z: number
 }
 
-export interface TSData {
-    timestamp: number[],
-    data: number[]
+export interface TSRequest {
+    device_id: string,
+    start: number,
+    end: number,
 }

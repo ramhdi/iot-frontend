@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { DeviceData, TSData } from './DataTypes';
+import { DeviceData } from './DataTypes';
 import { Dashboard } from './Dashboard';
+import { TSChart } from './TSChart';
 // import './index.css'
 
-let startValue: DeviceData = {
+let startDeviceValue: DeviceData = {
   timestamp: 0,
   device_id: "null",
   temperature: 0,
@@ -14,18 +15,9 @@ let startValue: DeviceData = {
   accel_z: 0
 };
 
-const fetchDummyData = async () => {
-  const response = await fetch("http://localhost:1287/device_data/dummy",
-  {
-      method: "GET",
-      mode: "cors"
-  });
-  const data = await response.json();
-  startValue = data as DeviceData;
-};
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Dashboard { ...startValue } />
+    <Dashboard { ...startDeviceValue } />
+    <TSChart {...[startDeviceValue]} />
   </React.StrictMode>,
 )
