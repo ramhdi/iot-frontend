@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { DeviceData } from './DataTypes';
 import { Dashboard } from './Dashboard';
-import { TSChart } from './TSChart';
+import { TSChart, DropdownMenu } from './TSChart';
 // import './index.css'
 
 let startDeviceValue: DeviceData = {
@@ -19,5 +19,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Dashboard { ...startDeviceValue } />
     <TSChart {...[startDeviceValue]} />
+    <DropdownMenu />
   </React.StrictMode>,
 )

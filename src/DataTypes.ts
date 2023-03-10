@@ -1,4 +1,5 @@
 export interface DeviceData {
+    _id?: string,
     timestamp: number,
     device_id: string,
     temperature: number,

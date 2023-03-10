@@ -6,8 +6,8 @@ interface TableInputParams {
 export default function Table(params: TableInputParams) {
   let tableHeader = (
     <tr>
-      {params.headers.map(header => {
-        return (<th>{header}</th>);
+      {params.headers.map((header, index) => {
+        return (<th key={index}>{header}</th>);
       })}
     </tr>
   );
@@ -15,8 +15,8 @@ export default function Table(params: TableInputParams) {
   let tableEntries = params.entries.map(rows => {
     return (<tr>
       {rows.map((column, index) => {
-        if (index == 0) return (<td><b>{column}</b></td>);
-        else return (<td>{column}</td>);
+        if (index == 0) return (<td key={index}><b>{column}</b></td>);
+        else return (<td key={index}>{column}</td>);
       })}
     </tr>);
   });
@@ -24,8 +24,8 @@ export default function Table(params: TableInputParams) {
   return (
     <div>
       <table cellPadding="0" cellSpacing="10" border={0}>
-        {tableHeader}
-        {tableEntries}
+        <thead>{tableHeader}</thead>
+        <tbody>{tableEntries}</tbody>
       </table>
     </div>
   );

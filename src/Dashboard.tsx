@@ -6,21 +6,27 @@ export function Dashboard(deviceData: DeviceData) {
   const [latestData, setLatestData] = useState(deviceData);
 
   const fetchLatestData = async () => {
-    // Post dummy data
-    const _ = await fetch("http://localhost:1287/device_data/dummy",
-    {
-        method: "POST",
-        mode: "cors"
-    });
-
-    // Get latest data
-    const response = await fetch("http://localhost:1287/device_data/latest",
+    // Get dummy data
+    const response = await fetch("http://localhost:1287/device_data/dummy",
     {
         method: "GET",
         mode: "cors"
     });
     const data: DeviceData = await response.json();
     setLatestData(data);
+    
+    let data2 = data;
+    delete data2['_id'];
+    // Post dummy data
+    const response2 = await fetch("http://localhost:1287/device_data",
+    {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data2)
+    });
   };
 
   useEffect(() => {

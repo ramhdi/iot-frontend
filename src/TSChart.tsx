@@ -8,6 +8,7 @@ import {
   Scatter,
   ScatterChart
 } from 'recharts';
+import Datepicker from './components/Datepicker';
 import Dropdown from './components/Dropdown';
 import { DeviceData } from './DataTypes';
 
@@ -39,6 +40,9 @@ export function TSChart(_DeviceData: DeviceData[]) {
 
   return (
     <div>
+      <div>
+        <Datepicker onChange={()=>{}} />
+      </div>
       <div style={{ float:'left', width: '50%' }}>
         <h4>Temperature</h4>
         <ResponsiveContainer width="80%" height={180}>
@@ -136,26 +140,8 @@ export function TSChart(_DeviceData: DeviceData[]) {
   );
 }
 
-export function DropdownMenu(_DeviceData: DeviceData[]) {
-  const [tsData, setTSData] = useState(_DeviceData);
+export function DropdownMenu() {
   const [param, setParam] = useState('temperature');
-
-  const fetchTSData = async () => {
-    const requestQuery = {
-      device_id: "488188e2-1c9a-4c65-a83f-ef4b8cb640f1",
-      start: '' + 0,
-      end: '' + Date.now()
-    };
-    const requestString = new URLSearchParams(requestQuery).toString();
-    const response = await fetch("http://localhost:1287/device_data?" + requestString,
-    {
-        method: "GET",
-        mode: "cors",
-    });
-    const data: DeviceData[] = await response.json();
-    setTSData(data);
-    console.log(tsData);
-  };
 
   const paramOptions = [
     {
@@ -180,14 +166,13 @@ export function DropdownMenu(_DeviceData: DeviceData[]) {
     },
   ];
 
-  const onParamChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setParam(event.target.value);
-    fetchTSData();
-  };
-
   return (
     <div>
-      <Dropdown value={param} label='What do we eat?' options={paramOptions} onChange={onParamChange}
+      <Dropdown
+      value={param}
+      label='What do we eat?'
+      options={paramOptions}
+      onChange={(value) => setParam(value)}
       />
     </div>
   );
